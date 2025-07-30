@@ -4,3 +4,6 @@ source "https://rubygems.org"
 
 # gem "rails"
 gem "rspec"
+gem "pry"
+gem "pry-nav"
+gem "pry-remote"
