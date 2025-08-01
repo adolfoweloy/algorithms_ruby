@@ -1,12 +1,17 @@
 class SellStocksFee
   def max_profit(prices, fee)
-    n = prices.size
-    hold = [-prices[0]]
-    free = [0]
-    for i in 1...n
-      free[i] = [free[i-1], hold[i-1] + prices[i] - fee].max
-      hold[i] = [hold[i-1], free[i-1] - prices[i]].max
+    profit = 0
+    min_price = prices[0] + fee
+
+    prices.each do |p|
+      if p + fee < min_price
+        min_price = p + fee
+      elsif p > min_price
+        profit += p - min_price
+        min_price = p
+      end
     end
-    free[n-1]
+    profit
   end
+
 end
