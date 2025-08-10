@@ -5,5 +5,7 @@
     "editor.detectIndentation": false
   },
   "files.trimTrailingWhitespace": true,
-  "files.insertFinalNewline": true
-} 
+  "files.insertFinalNewline": true,
+  "github.copilot.chat.codeGeneration.useInstructionFiles": true,
+  "github.copilot.chat.agent.runTasks": true
+}
