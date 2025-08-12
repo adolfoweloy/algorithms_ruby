@@ -5,29 +5,30 @@ class FloodFill
     return [] if image.nil? || image == []
     prev = image[sr][sc]
 
-    # If the starting color is already the target color, no need to fill
-    return image if prev == color
 
-    dfs(image, sr, sc, color, prev)
+    queue = [[sr, sc]]
+
+    while queue.size > 0
+      n = queue.size
+      n.times do
+        (x, y) = queue.pop
+
+        # Check boundaries first
+        next if x < 0 || x >= image.size
+        next if y < 0 || y >= image[0].size
+
+        if image[x][y] == prev && image[x][y] != color
+          image[x][y] = color
+
+          queue.prepend [x+1, y]
+          queue.prepend [x-1, y]
+          queue.prepend [x, y+1]
+          queue.prepend [x, y-1]
+        end
+      end
+    end
+
     image
   end
 
-  def dfs(image, sr, sc, color, prev_color)
-    n = image.size
-    m = image[0].size
-
-    return if sr < 0 || sr >= n || sc < 0 || sc >= m
-
-    if image[sr][sc] == prev_color
-
-      # Color the current pixel
-      image[sr][sc] = color
-
-      # Recursively fill adjacent pixels (4-directional)
-      dfs(image, sr + 1, sc, color, prev_color)
-      dfs(image, sr - 1, sc, color, prev_color)
-      dfs(image, sr, sc + 1, color, prev_color)
-      dfs(image, sr, sc - 1, color, prev_color)
-    end
-  end
 end
