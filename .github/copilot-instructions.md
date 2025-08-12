@@ -30,6 +30,7 @@ This is a Ruby algorithms and data structures practice project containing implem
 - Include time and space complexity comments where helpful
 - Handle edge cases (empty inputs, nil values, single elements)
 - Use meaningful variable names that describe the algorithm's logic
+- Only implement the solution if I ask you to help me with the solution. Otherwise just return a default value.
 
 ### Tree Problems
 - Use the `TreeNode` class for binary tree problems
