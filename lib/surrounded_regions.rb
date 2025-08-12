@@ -5,39 +5,46 @@ class SurroundedRegions
     # Handle edge cases
     return if board.nil? || board.empty? || board[0].empty?
 
-    for i in 0...board.size
-      for j in 0...board[0].size
-        @region = []
-        open = dfs(board, i, j)
-        undo!(board) if open
+    # capture the border open cells (i.e. marked with O)
+    rows = board.size
+    cols = board[0].size
+    borders = []
+
+    for r in 0...rows
+      borders << [r, 0]
+      borders << [r, cols-1]
+    end
+
+    for c in 0...cols
+      borders << [0, c]
+      borders << [rows-1, c]
+    end
+
+    borders.each do |border|
+      (i, j) = border
+      preserve(board, i, j)
+    end
+
+    for i in 0...rows
+      for j in 0...cols
+        board[i][j] = "X" if board[i][j] == "O"
+        board[i][j] = "O" if board[i][j] == "E"
       end
     end
 
     board
   end
 
-  def dfs(board, i, j)
-    return false if i < 0 || i >= board.size || j < 0 || j >= board[0].size
-    return false if board[i][j] == "X"
-    return true if edge?(board, i, j)
+  def preserve(board, i, j)
+    return if i < 0 || i >= board.size || j < 0 || j >= board[0].size
+    return if board[i][j] == "X" || board[i][j] == "E"
 
-    board[i][j] = "X"
-    @region << [i, j]
+    board[i][j] = "E" # E for edge
 
-    dfs(board, i+1, j) ||
-    dfs(board, i-1, j) ||
-    dfs(board, i, j+1) ||
-    dfs(board, i, j-1)
+    preserve(board, i+1, j) ||
+    preserve(board, i-1, j) ||
+    preserve(board, i, j+1) ||
+    preserve(board, i, j-1)
   end
 
-  def edge?(board, i, j)
-    i == 0 || i == board.size-1 || j == 0 || j == board[0].size-1
-  end
-
-  def undo!(board)
-    @region.each do |r|
-      (i, j) = r
-      board[i][j] = "O"
-    end
-  end
 end
