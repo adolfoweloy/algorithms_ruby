@@ -142,6 +142,10 @@ RSpec.describe LongestSubstringWithoutRepeatingCharacters do
       it "handles pattern ending with repeat" do
         expect(subject.length_of_longest_substring("aba")).to eq(2)
       end
+
+      it "handles dvdf pattern" do
+        expect(subject.length_of_longest_substring("dvdf")).to eq(3)
+      end
     end
   end
 end

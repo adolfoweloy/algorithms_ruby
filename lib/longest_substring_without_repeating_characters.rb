@@ -9,22 +9,20 @@ class LongestSubstringWithoutRepeatingCharacters
 
     set = Set.new
     left = 0
-    right  = 0
+    right = 0
     max = 0
 
-    while right < n && left <= right
+    while right < n
+        # If current character is already in set, shrink window from left
+        while set.include?(s[right])
+            set.delete(s[left])
+            left += 1
+        end
 
-      while !set.include?(s[right]) && right < n
+        # Add current character and expand window
         set << s[right]
+        max = [max, right - left + 1].max
         right += 1
-      end
-
-      max = [max, right - left].max
-      set.delete(s[left])
-      if right < n
-        left += 1
-      end
-
     end
 
     max
