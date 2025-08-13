@@ -51,7 +51,7 @@ RSpec.describe LongestSubstringWithoutRepeatingCharacters do
 
     context "when string has spaces" do
       it "treats spaces as characters" do
-        expect(subject.length_of_longest_substring("a b c")).to eq(5)
+        expect(subject.length_of_longest_substring("a b c")).to eq(3)
       end
 
       it "handles repeating spaces" do
@@ -83,7 +83,7 @@ RSpec.describe LongestSubstringWithoutRepeatingCharacters do
 
     context "when longest substring is in the middle" do
       it "finds substring in middle" do
-        expect(subject.length_of_longest_substring("aabcdefgg")).to eq(6)
+        expect(subject.length_of_longest_substring("aabcdefgg")).to eq(7)
       end
     end
 
