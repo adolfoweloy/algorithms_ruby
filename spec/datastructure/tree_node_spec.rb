@@ -28,4 +28,17 @@ RSpec.describe TreeNode do
     end
   end
 
+  describe "deserialization" do
+    it "should deserialize a tree with only one node" do
+      result = TreeNode.deserialize([1])
+      expected = TreeNode.new(1)
+      expect(result).to eq(expected)
+    end
+
+    it "should deserialize a complete tree with tree elements" do
+      result = TreeNode.deserialize([1,2,3])
+      expected = TreeNode.new(1, TreeNode.new(2), TreeNode.new(3))
+      expect(result).to eq(expected)
+    end
+  end
 end

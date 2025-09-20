@@ -34,4 +34,40 @@ class TreeNode
 
     return res
   end
+
+  def self.deserialize(data)
+    return nil if data.nil? || data.empty?
+
+    i = 0
+    root = TreeNode.new(data[i])
+    queue = [root]
+    len = data.size
+
+    while !queue.empty?
+      node = queue.shift
+
+      i = i + 1
+      if i < len && !data[i].nil?
+        node.left = TreeNode.new(data[i])
+        queue << node.left
+      end
+
+      i = i + 1
+      if i < len && !data[i].nil?
+        node.right = TreeNode.new(data[i])
+        queue << node.right
+      end
+    end
+
+    return root
+  end
+
+  def ==(other)
+    return false unless other.is_a?(TreeNode)
+    @val == other.val && @left == other.left && @right == other.right
+  end
+
+  def hash
+    [@val, @left, @right].hash
+  end
 end
